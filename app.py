@@ -61,10 +61,10 @@ def main():
 
                     # Results
                     query_results = sql_executor(raw_code)
-                    with st.expander("Results"):
-                        st.write(query_results)
+                    # with st.expander("Results"):
+                    #     st.write(query_results)
 
-                    with st.expander("Pretty Table"):
+                    with st.expander("Results"):
                         query_df = pd.DataFrame(query_results)
                         st.dataframe(query_df)
 
