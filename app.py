@@ -4,13 +4,13 @@ import sqlite3
 
 # DB
 
-conn = sqlite3.connect('data/world.sqlite')
+conn = sqlite3.connect('data/HR.db')
 c = conn.cursor()
 
 cursor = conn.cursor()
 
 # Get a list of table names in the database
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
 table_names = [row[0] for row in cursor.fetchall()]
 
 # Create an empty dictionary to store the column names for each table
@@ -22,7 +22,7 @@ for table_name in table_names:
     column_names = [row[1] for row in cursor.fetchall()]
     column_names_dict[table_name] = column_names
 
-
+st.set_page_config(layout="wide")
 
 
 def sql_executor(raw_code):
@@ -38,7 +38,7 @@ def main():
     if choice == "Home":
         st.subheader("HomePage")
 
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns([1,2])
 
         with col1:
             with st.form(key='query_form'):
