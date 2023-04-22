@@ -65,7 +65,7 @@ def main():
                     #     st.write(query_results)
 
                     with st.expander("Results"):
-                        query_df = pd.DataFrame(query_results)
+                        query_df = pd.DataFrame(query_results, columns=[description[0] for description in cursor.description])
                         st.dataframe(query_df)
 
 
