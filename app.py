@@ -42,7 +42,7 @@ def main():
 
         with col1:
             with st.form(key='query_form'):
-                raw_code = st.text_area("SQL Code Here")
+                raw_code = st.text_area("SQL Code Here", value= 'select * from jobs')
                 submit_code = st.form_submit_button("Execute")
 
             # Table of Info
