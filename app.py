@@ -32,7 +32,7 @@ def sql_executor(raw_code):
 
 def main():
     st.title("SQL Playground")
-    menu = ["Home", "About"]
+    menu = ["Home", "Solution"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
@@ -72,7 +72,57 @@ def main():
 
 
     else:
-        st.subheader("About")
+        st.subheader("Solution")
+
+        col1, col2 = st.columns([1, 2])
+
+        with col1:
+            with st.form(key='query_form'):
+                raw_code = st.text_area("SQL Code Here", value='''
+                    select 
+                    e.employee_id,
+                    e.first_name || " " || e.last_name as Employee_Name,
+                    e.salary,
+                    m.first_name || " " || m.last_name as Manager_Name,
+                    cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', e.hire_date) as int) as Tenure_years, 
+                    j.job_title,
+                    d.department_name,
+                    l.city,
+                    c.country_name,
+                    r.region_name 
+                    
+                    from employees e
+                    inner join jobs j on e.job_id = j.job_id
+                    inner join departments d on e.department_id = d.department_id
+                    inner join locations l on d.location_id = l.location_id
+                    inner join countries c on l.country_id = c.country_id
+                    inner join regions r on c.region_id = r.region_id
+                    left join employees m on e.manager_id = m.employee_id''')
+                submit_code = st.form_submit_button("Execute")
+
+            # Table of Info
+
+            with st.expander("Table Info"):
+                table_info = column_names_dict
+
+                # table_info = {'city': city, 'country': country, 'countrylanguage': countrylanguage}
+                st.json(table_info)
+
+            # Results Layouts
+            with col2:
+                if submit_code:
+                    st.info("Query Submitted")
+                    st.code(raw_code)
+
+                    # Results
+                    query_results = sql_executor(raw_code)
+                    # with st.expander("Results"):
+                    #     st.write(query_results)
+
+                    with st.expander("Results"):
+                        query_df = pd.DataFrame(query_results,
+                                                columns=[description[0] for description in cursor.description])
+                        st.dataframe(query_df)
 
 if __name__ == '__main__':
     main()
