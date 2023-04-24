@@ -83,6 +83,8 @@ def main():
                     e.employee_id,
                     e.first_name || " " || e.last_name as Employee_Name,
                     e.salary,
+                    ROUND(AVG(e.salary) OVER (PARTITION BY (m.first_name || " " || m.last_name)), 1) as AVG_Salary_by_mngr,
+                    ROUND(AVG(e.salary) OVER (PARTITION BY d.department_name), 1) as AVG_Salary_by_dept,
                     m.first_name || " " || m.last_name as Manager_Name,
                     cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', e.hire_date) as int) as Tenure_years, 
                     j.job_title,
