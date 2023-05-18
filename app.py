@@ -32,10 +32,10 @@ def sql_executor(raw_code):
 
 def main():
     st.title("SQL Playground")
-    menu = ["Home", "Solution"]
+    menu = ["Case Description", "SQL Database", "Solution Preview"]
     choice = st.sidebar.selectbox("Menu", menu)
 
-    if choice == "Home":
+    if choice == "SQL Database":
         st.subheader("HomePage")
 
         col1, col2 = st.columns([1,2])
@@ -47,7 +47,7 @@ def main():
 
             # Table of Info
 
-            with st.expander("Table Info"):
+            with st.expander("Table Info", expanded=True):
                 table_info = column_names_dict
 
                 # table_info = {'city': city, 'country': country, 'countrylanguage': countrylanguage}
@@ -64,9 +64,12 @@ def main():
                     # with st.expander("Results"):
                     #     st.write(query_results)
 
-                    with st.expander("Results"):
+                    with st.expander("Results", expanded=True):
                         query_df = pd.DataFrame(query_results, columns=[description[0] for description in cursor.description])
                         st.dataframe(query_df)
+
+    elif choice == "Case Description":
+        st.subheader("Case")
 
 
 
@@ -78,8 +81,7 @@ def main():
 
         with col1:
             with st.form(key='query_form'):
-                raw_code = st.text_area("SQL Code Here", value='''
-                    select 
+                raw_code = '''select 
                     e.employee_id,
                     e.first_name || " " || e.last_name as Employee_Name,
                     e.salary,
@@ -99,7 +101,9 @@ def main():
                     inner join locations l on e.location_id = l.location_id
                     inner join countries c on l.country_id = c.country_id
                     inner join regions r on c.region_id = r.region_id
-                    left join employees m on e.manager_id = m.employee_id''')
+                    left join employees m on e.manager_id = m.employee_id
+                    LIMIT 3'''
+                mock_code = st.text_area("SQL Code Here", value='''Enter your SQL here''')
                 submit_code = st.form_submit_button("Execute")
 
             # Table of Info
@@ -114,14 +118,14 @@ def main():
             with col2:
                 if submit_code:
                     st.info("Query Submitted")
-                    st.code(raw_code)
+                    st.code("Solution code hidden")
 
                     # Results
                     query_results = sql_executor(raw_code)
                     # with st.expander("Results"):
                     #     st.write(query_results)
 
-                    with st.expander("Results"):
+                    with st.expander("Results", expanded=True):
                         query_df = pd.DataFrame(query_results,
                                                 columns=[description[0] for description in cursor.description])
                         st.dataframe(query_df)
