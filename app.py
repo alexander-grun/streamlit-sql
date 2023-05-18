@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+from PIL import Image
 
 # DB
 
@@ -31,12 +32,12 @@ def sql_executor(raw_code):
 	return data
 
 def main():
-    st.title("SQL Playground")
+    st.title("HR Case")
     menu = ["Case Description", "SQL Database", "Solution Preview"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "SQL Database":
-        st.subheader("HomePage")
+        st.subheader("SQL Playground")
 
         col1, col2 = st.columns([1,2])
 
@@ -70,6 +71,21 @@ def main():
 
     elif choice == "Case Description":
         st.subheader("Case")
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.text("Case description")
+            st.write("""Head of HR asked you to answer some of the questions for him while working with this data, provide answers in short form as if you are replying to the email. As a challenging task - try answering without looking into the big table, try building a query that would fetch you a result.
+
+1. Who is the manager with the most employees, how many, and which team is it? 
+2. Who is the manager with the highest average salary in his team excluding CEO and Management Team? What is the team and what’s the average salary?
+3. In which city should we open the third office? Currently, we have 2 in two of the most popular cities where our employees are.""")
+
+        with col2:
+
+            image = Image.open('hr_db.png')
+            st.image(image)
+
+        st.write("additionally Link to preview page")
 
 
 
