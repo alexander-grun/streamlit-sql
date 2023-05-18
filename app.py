@@ -118,7 +118,7 @@ def main():
             with col2:
                 if submit_code:
                     st.info("Query Submitted")
-                    st.code("Solution code hidden")
+                    st.code("Solution code hidden, preview results below")
 
                     # Results
                     query_results = sql_executor(raw_code)
