@@ -4,7 +4,7 @@ import sqlite3
 
 # DB
 
-conn = sqlite3.connect('case2/HR.db')
+conn = sqlite3.connect('case2/case2.db')
 c = conn.cursor()
 
 cursor = conn.cursor()
