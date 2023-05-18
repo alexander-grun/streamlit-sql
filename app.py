@@ -96,7 +96,7 @@ def main():
                     from employees e
                     inner join jobs j on e.job_id = j.job_id
                     inner join departments d on e.department_id = d.department_id
-                    inner join locations l on d.location_id = l.location_id
+                    inner join locations l on e.location_id = l.location_id
                     inner join countries c on l.country_id = c.country_id
                     inner join regions r on c.region_id = r.region_id
                     left join employees m on e.manager_id = m.employee_id''')
