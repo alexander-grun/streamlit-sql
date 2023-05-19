@@ -56,13 +56,9 @@ def main():
 1. Who is the manager with the most employees, how many, and which team is it? 
 2. Who is the manager with the highest average salary in his team excluding CEO and Management Team? What is the team and what’s the average salary?
 3. In which city should we open the third office? Currently, we have 2 in two of the most popular cities where our employees are.""")
-        st.write("""Part 2:"
-                             "additionally Link to preview page""")
-        with st.expander("Table Info"):
-            table_info = column_names_dict
-            st.json(table_info)
-        st.write("""Part 2:"
-                 "additionally Link to preview page""")
+        st.write("""Part 2:
+                             The second part of the request from Head of HR is the to help creating the wide table for HR analyst to build dashboards on. You don’t need to build any dashboards, but your SQL skills are needed to join necessary tables and produce the end result.
+                              To help you with specifications HR team made a prototype table""")
 
         raw_code = '''select 
                             e.employee_id,
@@ -89,16 +85,24 @@ def main():
                             LIMIT 3'''
 
         query_results = sql_executor(raw_code)
-        # with st.expander("Results"):
-        #     st.write(query_results)
 
         with st.expander("Final table preview", expanded=True):
             query_df = pd.DataFrame(query_results,
                                     columns=[description[0] for description in cursor.description])
             st.dataframe(query_df)
 
-        with st.expander("Hints:"):
-            st.write("additionally Link to preview page")
+        with st.expander("Table Info"):
+            table_info = column_names_dict
+            st.json(table_info)
+
+
+        with st.expander("Hint: How to approach this task?"):
+            st.write("""
+            1. Start by checking individual tables in the SQL playground. Explore ‘employees’, ‘department’, and other tables to learn the data. Use the ‘table info’ section to peak into columns of the tables in the database
+            2. Look again at the final solution and mark the columns coming from the ‘employees’ table. Which columns are missing and should be taken from other tables? 
+            3. Start solving columns you know clearly. Such as “select employees.employee_id” - this is the first column and you can consider it done. 
+            4. Once you joined all the needed tables take a look at the columns which require some calculations such as Average Salary per Manager and Tenure in Years. Which columns can be used to make these? 
+""")
 
     with col2:
 
