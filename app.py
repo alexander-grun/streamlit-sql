@@ -120,7 +120,7 @@ def main():
                     j.job_title,
                     d.department_name,
                     l.city,
-                    l.region,
+                    l.region as State,
                     c.country_name,
                     r.region_name 
                     
