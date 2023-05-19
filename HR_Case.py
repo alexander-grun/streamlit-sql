@@ -94,14 +94,14 @@ def main():
 
 
 
-        with st.expander("Hint: How to approach this task?"):
+        with st.expander("Hints: How to approach this task?"):
             st.write("""
-            1. Start by checking individual tables in the SQL playground. Explore ‘employees’, ‘department’, and other tables to learn the data. Use the ‘table info’ section to peak into columns of the tables in the database
+            1. Start by checking individual tables in the SQL playground. Explore ‘employees’, ‘department’, and other tables to learn the data. Use the ‘tables info’ section to peak into columns of the tables in the database
             2. Look again at the final solution and mark the columns coming from the ‘employees’ table. Which columns are missing and should be taken from other tables? 
             3. Start solving columns you know clearly. Such as “select employees.employee_id” - this is the first column and you can consider it done. 
             4. Once you joined all the needed tables take a look at the columns which require some calculations such as Average Salary per Manager and Tenure in Years. Which columns can be used to make these? 
 """)
-        with st.expander("Table Info"):
+        with st.expander("Tables Info"):
             table_info = column_names_dict
             st.json(table_info)
 

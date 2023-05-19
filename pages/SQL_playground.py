@@ -49,7 +49,7 @@ with col1:
 
     # Table of Info
 
-    with st.expander("Table Info", expanded=True):
+    with st.expander("Tables Info", expanded=True):
         table_info = column_names_dict
 
         # table_info = {'city': city, 'country': country, 'countrylanguage': countrylanguage}
