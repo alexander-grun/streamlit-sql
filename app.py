@@ -3,6 +3,18 @@ import pandas as pd
 import sqlite3
 from PIL import Image
 
+# app settings
+
+st.set_page_config(layout="wide")
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 # DB
 
 conn = sqlite3.connect('data/case2.db')
@@ -23,7 +35,7 @@ for table_name in table_names:
     column_names = [row[1] for row in cursor.fetchall()]
     column_names_dict[table_name] = column_names
 
-st.set_page_config(layout="wide")
+
 
 
 def sql_executor(raw_code):
@@ -145,6 +157,8 @@ def main():
                         query_df = pd.DataFrame(query_results,
                                                 columns=[description[0] for description in cursor.description])
                         st.dataframe(query_df)
+
+
 
 if __name__ == '__main__':
     main()
