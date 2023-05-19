@@ -101,9 +101,9 @@ def main():
             3. Start solving columns you know clearly. Such as “select employees.employee_id” - this is the first column and you can consider it done. 
             4. Once you joined all the needed tables take a look at the columns which require some calculations such as Average Salary per Manager and Tenure in Years. Which columns can be used to make these? 
 """)
-            with st.expander("Table Info"):
-                table_info = column_names_dict
-                st.json(table_info)
+        with st.expander("Table Info"):
+            table_info = column_names_dict
+            st.json(table_info)
 
     with col2:
 
