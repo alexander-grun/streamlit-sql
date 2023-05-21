@@ -18,9 +18,9 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 # DB
 
 conn = sqlite3.connect('data/case2.db')
-c = conn.cursor()
 
 cursor = conn.cursor()
+cursor.execute("PRAGMA query_only = 1")
 
 # Get a list of table names in the database
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
